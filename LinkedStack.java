@@ -2,46 +2,37 @@ import java.util.EmptyStackException;
 
 public class LinkedStack<T> implements InterfaceStack<T> {
 
-	private Node firstNode;
-	private int numberOfEntries;
+	private Node topNode;
 
 	public LinkedStack() {
-		firstNode = null;
-		numberOfEntries = 0;
+		topNode = null;
 	}
 
 	public void push(T newEntry) {
-		Node newNode = new Node(newEntry);
-
-		newNode.next = firstNode;
-		firstNode = newNode;
-		numberOfEntries++;
+		topNode = new Node(newEntry, topNode);
 	}
 
 	public T pop() {
-		if (!isEmpty()) {
-			Node current = firstNode;
-			T data = firstNode.data;
-			firstNode = current.next;
-			numberOfEntries--;
-			return data;
-		}
-		throw new EmptyStackException();
+		if (isEmpty())
+			throw new EmptyStackException();
+
+		T top = topNode.getData();
+		topNode.setNextNode(topNode.getNextNode());
+		return top;
 	}
 
 	public T peek() {
-		if (firstNode == null)
-			return firstNode.data;
-		throw new EmptyStackException();
+		if (isEmpty())
+			throw new EmptyStackException();
+		return topNode.getData();
 	}
 
 	public boolean isEmpty() {
-		return numberOfEntries == 0;
+		return topNode == null;
 	}
 
 	public void clear() {
-		while(!isEmpty())
-			pop();
+		topNode = null;
 	}
 
 	private class Node {
@@ -55,6 +46,22 @@ public class LinkedStack<T> implements InterfaceStack<T> {
 		private Node(T dataPortion, Node nextNode) {
 			data = dataPortion;
 			next = nextNode;
+		}
+
+		public void setData(T data) {
+			this.data = data;
+		}
+
+		public T getData() {
+			return data;
+		}
+
+		public void setNextNode(Node node) {
+			this.next = node;
+		}
+
+		public Node getNextNode() {
+			return next;
 		}
 	}
 }
