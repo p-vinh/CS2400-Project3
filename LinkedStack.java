@@ -1,5 +1,6 @@
 import java.util.EmptyStackException;
 
+
 public class LinkedStack<T> implements InterfaceStack<T> {
 
 	private Node topNode;
@@ -16,15 +17,15 @@ public class LinkedStack<T> implements InterfaceStack<T> {
 		if (isEmpty())
 			throw new EmptyStackException();
 
-		T top = topNode.getData();
-		topNode.setNextNode(topNode.getNextNode());
+		T top = topNode.data;
+		topNode = topNode.next;
 		return top;
 	}
 
 	public T peek() {
 		if (isEmpty())
 			throw new EmptyStackException();
-		return topNode.getData();
+		return topNode.data;
 	}
 
 	public boolean isEmpty() {
@@ -46,22 +47,6 @@ public class LinkedStack<T> implements InterfaceStack<T> {
 		private Node(T dataPortion, Node nextNode) {
 			data = dataPortion;
 			next = nextNode;
-		}
-
-		public void setData(T data) {
-			this.data = data;
-		}
-
-		public T getData() {
-			return data;
-		}
-
-		public void setNextNode(Node node) {
-			this.next = node;
-		}
-
-		public Node getNextNode() {
-			return next;
 		}
 	}
 }
