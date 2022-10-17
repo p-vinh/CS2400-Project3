@@ -1,3 +1,14 @@
+// 
+//  Name:		Pham, Vinh 
+//  Project:	3
+//  Due:		19 October 2022 
+//  Course:		cs-2400-02-f22 
+// 
+//  Description: 
+//    Using a stack the program will output a postfix expression given an infix.
+//    It will also evaluate the postfix expression if given one.
+// 
+
 public interface InterfaceStack<T> {
 
 	/** Adds a new entry to the top of the stack

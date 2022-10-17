@@ -1,3 +1,14 @@
+// 
+//  Name:		Pham, Vinh 
+//  Project:	3
+//  Due:		19 October 2022 
+//  Course:		cs-2400-02-f22 
+// 
+//  Description: 
+//    Using a stack the program will output a postfix expression given an infix.
+//    It will also evaluate the postfix expression if given one.
+// 
+
 import java.util.ArrayList;
 
 public class Expression {
@@ -47,13 +58,12 @@ public class Expression {
 			while (!operatorStack.isEmpty()) {
 				topOperator = operatorStack.pop();
 				if (topOperator.equals("(") || topOperator.equals(")"))
-					throw new RuntimeException();
+					throw new RuntimeException("Mismatch Parenthesis");
 				ret.add(topOperator);
 			}
 
 			return ret.toArray(new String[0]);
 		} catch (RuntimeException re) {
-			re.printStackTrace();
 			throw new RuntimeException("Not a good expression");
 		}
 	}
@@ -83,12 +93,12 @@ public class Expression {
 
 	private static int getPrecedence(String entry) {
 		switch (entry) {
-			case "+":
-			case "-":
-				return 1;
 			case "*":
 			case "/":
 				return 2;
+			case "+":
+			case "-":
+				return 1;
 			default:
 				return 0;
 		}
@@ -97,16 +107,16 @@ public class Expression {
 
 	private static double evaluateOperation(double rhs, double lhs, String operator) {
 		switch (operator) {
-			case "+":
-				return lhs + rhs;
-			case "-":
-				return lhs - rhs;
+			case "^":
+				return Math.pow(lhs, rhs);
 			case "*":
 				return lhs * rhs;
 			case "/":
 				return lhs / rhs;
-			case "^":
-				return Math.pow(lhs, rhs);
+			case "+":
+				return lhs + rhs;
+			case "-":
+				return lhs - rhs;
 			default:
 				return 0.0;
 		}
