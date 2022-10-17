@@ -2,6 +2,9 @@ import java.util.ArrayList;
 
 public class Expression {
 
+	private Expression() {
+	}
+
 	public static String[] convertToPostfix(String[] infixExpression) {
 		try {
 			ArrayList<String> ret = new ArrayList<>();
@@ -31,7 +34,7 @@ public class Expression {
 						break;
 					case ")":
 						topOperator = operatorStack.pop();
-						while (topOperator != "(") {
+						while (!topOperator.equals("(")) {
 							ret.add(topOperator);
 							topOperator = operatorStack.pop();
 						}
@@ -43,13 +46,14 @@ public class Expression {
 
 			while (!operatorStack.isEmpty()) {
 				topOperator = operatorStack.pop();
-				if (topOperator == "(" || topOperator == ")")
+				if (topOperator.equals("(") || topOperator.equals(")"))
 					throw new RuntimeException();
 				ret.add(topOperator);
 			}
 
 			return ret.toArray(new String[0]);
 		} catch (RuntimeException re) {
+			re.printStackTrace();
 			throw new RuntimeException("Not a good expression");
 		}
 	}

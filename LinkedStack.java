@@ -32,8 +32,11 @@ public class LinkedStack<T> implements InterfaceStack<T> {
 		return topNode == null;
 	}
 
-	public void clear() {
-		topNode = null;
+	public void clear() { // change everything to null
+		while (!isEmpty()) {
+			topNode = null;
+			topNode = topNode.next;
+		}
 	}
 
 	private class Node {
