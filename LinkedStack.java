@@ -27,7 +27,7 @@ public class LinkedStack<T> implements InterfaceStack<T> {
 		if (isEmpty())
 			throw new EmptyStackException();
 
-		T top = topNode.data;
+		T top = peek();
 		topNode = topNode.next;
 		return top;
 	}

@@ -13,7 +13,7 @@ public class ExpressionTest {
 	public static void main(String[] args) {
 		String[] expression = { "(", "1", "+", "2", ")", "*", "(", "3", "-", "4", ")", "/", "(", "5", "-", "6", ")" };
 
-
+		String[] postfixExpression = Expression.convertToPostfix(args[0].split(" "));
 		for (String str : Expression.convertToPostfix(args[0].split(" "))) {
 			System.out.print(str + " ");
 		}
