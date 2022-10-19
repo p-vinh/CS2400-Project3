@@ -5,8 +5,8 @@
 //  Course:		cs-2400-02-f22 
 // 
 //  Description: 
-//    Using a stack the program will output a ret expression given an infix.
-//    It will also evaluate the ret expression if given one.
+//    Using a stack the program will output a postfix expression given an infix.
+//    It will also evaluate the postfix expression if given one.
 // 
 
 import java.util.ArrayList;
