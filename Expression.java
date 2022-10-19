@@ -5,8 +5,8 @@
 //  Course:		cs-2400-02-f22 
 // 
 //  Description: 
-//    Using a stack the program will output a postfix expression given an infix.
-//    It will also evaluate the postfix expression if given one.
+//    Using a stack the program will output a ret expression given an infix.
+//    It will also evaluate the ret expression if given one.
 // 
 
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ public class Expression {
 
 	public static String[] convertToPostfix(String[] infixExpression) {
 		try {
-			ArrayList<String> postfix = new ArrayList<>();
+			ArrayList<String> ret = new ArrayList<>();
 			InterfaceStack<String> opStack = new LinkedStack<>();
 			String topOperator;
 
 			for (String str : infixExpression) {
 				if (isNumber(str))
-					postfix.add(str);
+					ret.add(str);
 
 				switch (str) {
 					case "^":
@@ -36,7 +36,7 @@ public class Expression {
 					case "/":
 						while (!opStack.isEmpty()
 								&& getPrecedence(str) <= getPrecedence(opStack.peek())) {
-							postfix.add(opStack.pop());
+							ret.add(opStack.pop());
 						}
 						opStack.push(str);
 						break;
@@ -46,7 +46,7 @@ public class Expression {
 					case ")":
 						topOperator = opStack.pop();
 						while (!topOperator.equals("(")) {
-							postfix.add(topOperator);
+							ret.add(topOperator);
 							topOperator = opStack.pop();
 						}
 						break;
@@ -57,10 +57,10 @@ public class Expression {
 
 			while (!opStack.isEmpty()) {
 				topOperator = opStack.pop();
-				postfix.add(topOperator);
+				ret.add(topOperator);
 			}
 
-			return postfix.toArray(new String[0]);
+			return ret.toArray(new String[0]);
 		} catch (RuntimeException re) {
 			throw new RuntimeException("Not a good expression");
 		}
