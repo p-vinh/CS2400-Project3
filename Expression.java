@@ -19,35 +19,35 @@ public class Expression {
 	public static String[] convertToPostfix(String[] infixExpression) {
 		try {
 			ArrayList<String> ret = new ArrayList<>();
-			InterfaceStack<String> operatorStack = new LinkedStack<>();
+			InterfaceStack<String> opStack = new LinkedStack<>();
 			String topOperator;
 
 			for (String str : infixExpression) {
-				if (isNumeric(str))
+				if (isNumber(str))
 					ret.add(str);
 
 				switch (str) {
 					case "^":
-						operatorStack.push(str);
+						opStack.push(str);
 						break;
 					case "+":
 					case "-":
 					case "*":
 					case "/":
-						while (!operatorStack.isEmpty()
-								&& getPrecedence(str) <= getPrecedence(operatorStack.peek())) {
-							ret.add(operatorStack.pop());
+						while (!opStack.isEmpty()
+								&& getPrecedence(str) <= getPrecedence(opStack.peek())) {
+							ret.add(opStack.pop());
 						}
-						operatorStack.push(str);
+						opStack.push(str);
 						break;
 					case "(":
-						operatorStack.push(str);
+						opStack.push(str);
 						break;
 					case ")":
-						topOperator = operatorStack.pop();
+						topOperator = opStack.pop();
 						while (!topOperator.equals("(")) {
 							ret.add(topOperator);
-							topOperator = operatorStack.pop();
+							topOperator = opStack.pop();
 						}
 						break;
 					default:
@@ -55,10 +55,8 @@ public class Expression {
 				}
 			}
 
-			while (!operatorStack.isEmpty()) {
-				topOperator = operatorStack.pop();
-				if (topOperator.equals("(") || topOperator.equals(")"))
-					throw new RuntimeException("Mismatch Parenthesis");
+			while (!opStack.isEmpty()) {
+				topOperator = opStack.pop();
 				ret.add(topOperator);
 			}
 
@@ -69,30 +67,30 @@ public class Expression {
 	}
 
 	public static double evaluatePostfix(String[] posfixExpression) {
-		InterfaceStack<Double> valueStack = new LinkedStack<>();
+		InterfaceStack<Double> evalStack = new LinkedStack<>();
 
 		for (String str : posfixExpression) {
-			if (isNumeric(str))
-				valueStack.push(Double.parseDouble(str));
+			if (isNumber(str))
+				evalStack.push(Double.parseDouble(str));
 			switch (str) {
-				case "+":
-				case "-":
 				case "*":
 				case "/":
 				case "^":
-					double rhs = valueStack.pop();
-					double lhs = valueStack.pop();
-					valueStack.push(evaluateOperation(rhs, lhs, str));
+				case "+":
+				case "-":
+					double lhs = evalStack.pop();
+					double rhs = evalStack.pop();
+					evalStack.push(evaluateOperation(rhs, lhs, str));
 					break;
 				default:
 					break;
 			}
 		}
-		return valueStack.peek();
+		return evalStack.peek();
 	}
 
-	private static int getPrecedence(String entry) {
-		switch (entry) {
+	private static int getPrecedence(String operator) {
+		switch (operator) {
 			case "*":
 			case "/":
 				return 2;
@@ -102,7 +100,6 @@ public class Expression {
 			default:
 				return 0;
 		}
-
 	}
 
 	private static double evaluateOperation(double rhs, double lhs, String operator) {
@@ -122,12 +119,12 @@ public class Expression {
 		}
 	}
 
-	private static boolean isNumeric(String num) {
+	private static boolean isNumber(String num) {
 		try {
-			Double.parseDouble(num);
+			double d = Double.parseDouble(num);
 			return true;
 		} catch (NumberFormatException e) {
-			return false;
+			throw new NumberFormatException("The expression does not have a number literal");
 		}
 	}
 
