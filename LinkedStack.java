@@ -5,8 +5,8 @@
 //  Course:		cs-2400-02-f22 
 // 
 //  Description: 
-//    Using a stack the program will output a postfix expression given an infix.
-//    It will also evaluate the postfix expression if given one.
+//    Implementation of the Interface Stack using a
+//    single linked list.
 // 
 
 import java.util.EmptyStackException;
