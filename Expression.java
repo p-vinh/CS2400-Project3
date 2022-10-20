@@ -11,6 +11,8 @@
 
 import java.util.ArrayList;
 
+import javax.management.RuntimeErrorException;
+
 public class Expression {
 
 	private Expression() {
@@ -62,31 +64,38 @@ public class Expression {
 
 			return ret.toArray(new String[0]);
 		} catch (RuntimeException re) {
-			throw new RuntimeException("Not a good expression");
+			throw new RuntimeException("Invalid Infix Expression");
 		}
 	}
 
 	public static double evaluatePostfix(String[] posfixExpression) {
-		InterfaceStack<Double> evalStack = new LinkedStack<>();
+		try {
+			InterfaceStack<Double> evalStack = new LinkedStack<>();
 
-		for (String str : posfixExpression) {
-			if (isNumber(str))
-				evalStack.push(Double.parseDouble(str));
-			switch (str) {
-				case "*":
-				case "/":
-				case "^":
-				case "+":
-				case "-":
-					double lhs = evalStack.pop();
-					double rhs = evalStack.pop();
-					evalStack.push(evaluateOperation(rhs, lhs, str));
-					break;
-				default:
-					break;
+			for (String str : posfixExpression) {
+				if (isNumber(str))
+					evalStack.push(Double.parseDouble(str));
+				switch (str) {
+					case "*":
+					case "/":
+					case "^":
+					case "+":
+					case "-":
+						double rhs = evalStack.pop();
+						double lhs = evalStack.pop();
+						evalStack.push(evaluateOperation(rhs, lhs, str));
+						break;
+					default:
+						break;
+				}
 			}
+			double ret = evalStack.pop();
+			if (!evalStack.isEmpty())
+				throw new RuntimeException("Invalid Postfix Expression");
+			return ret;
+		} catch (RuntimeException re) {
+			throw new RuntimeException("Invalid Postfix Expression");
 		}
-		return evalStack.peek();
 	}
 
 	private static int getPrecedence(String operator) {
@@ -124,7 +133,7 @@ public class Expression {
 			double d = Double.parseDouble(num);
 			return true;
 		} catch (NumberFormatException e) {
-			throw new NumberFormatException("The expression does not have a number literal");
+			return false;
 		}
 	}
 

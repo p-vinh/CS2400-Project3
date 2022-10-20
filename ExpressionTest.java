@@ -11,15 +11,16 @@
 
 public class ExpressionTest {
 	public static void main(String[] args) {
-		String[] expression = { "(", "1", "+", "2", ")", "*", "(", "3", "-", "4", ")", "/", "(", "5", "-", "6", ")" };
+		//String[] expression = { "(", "1", "+", "2", ")", "*", "(", "3", "-", "4", ")", "/", "(", "5", "-", "6", ")" };
 
-		String[] postfixExpression = Expression.convertToPostfix(args[0].split(" "));
-		for (String str : Expression.convertToPostfix(args[0].split(" "))) {
-			System.out.print(str + " ");
-		}
+		//String[] postfixExpression = Expression.convertToPostfix(args[0].split(" "));
 
-		System.out.println(Expression.evaluatePostfix(Expression.convertToPostfix(args[0].split(" "))));
-		// System.out.println(Expression.evaluatePostfix());
+		//for (String str : postfixExpression) {
+		//	System.out.print(str + " ");
+		//}
+
+		//System.out.println(Expression.evaluatePostfix(Expression.convertToPostfix(args[0].split(" "))));
+		System.out.println(Expression.evaluatePostfix(new String[] {"3", "5", "+", "4", "/"}));
 
 		// InterfaceStack<String> ex = new LinkedStack<>();
 		// for(String str : expression)
