@@ -5,8 +5,8 @@
 //  Course:		cs-2400-02-f22 
 // 
 //  Description: 
-//    Using a stack the program will output a postfix expression given an infix.
-//    It will also evaluate the postfix expression if given one.
+//    Expression.java is the implementation of convertToPostfix
+//    and evaluatePostfix using the stack implentation.
 // 
 
 import java.util.ArrayList;
@@ -78,8 +78,8 @@ public class Expression {
 				case "^":
 				case "+":
 				case "-":
-					double lhs = evalStack.pop();
 					double rhs = evalStack.pop();
+					double lhs = evalStack.pop();
 					evalStack.push(evaluateOperation(rhs, lhs, str));
 					break;
 				default:
@@ -124,7 +124,7 @@ public class Expression {
 			double d = Double.parseDouble(num);
 			return true;
 		} catch (NumberFormatException e) {
-			throw new NumberFormatException("The expression does not have a number literal");
+			return false;
 		}
 	}
 

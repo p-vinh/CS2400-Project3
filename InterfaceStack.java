@@ -5,8 +5,8 @@
 //  Course:		cs-2400-02-f22 
 // 
 //  Description: 
-//    Using a stack the program will output a postfix expression given an infix.
-//    It will also evaluate the postfix expression if given one.
+//    The stack interface and the java doc describing the methods
+//    
 // 
 
 public interface InterfaceStack<T> {

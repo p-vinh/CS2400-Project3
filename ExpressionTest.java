@@ -5,27 +5,37 @@
 //  Course:		cs-2400-02-f22 
 // 
 //  Description: 
-//    Using a stack the program will output a postfix expression given an infix.
-//    It will also evaluate the postfix expression if given one.
+//    Expression Test is testing all the methods in Expression.java
+//    to check if it works and if it outputs the correct answer.
 // 
 
 public class ExpressionTest {
 	public static void main(String[] args) {
-		String[] expression = { "(", "1", "+", "2", ")", "*", "(", "3", "-", "4", ")", "/", "(", "5", "-", "6", ")" };
 
 		String[] postfixExpression = Expression.convertToPostfix(args[0].split(" "));
-		for (String str : Expression.convertToPostfix(args[0].split(" "))) {
+		System.out.print("Postfix Expression: ");
+		for (String str : postfixExpression) {
 			System.out.print(str + " ");
 		}
-
+		System.out.println();
+		System.out.print("Postfix Evaluation: ");
 		System.out.println(Expression.evaluatePostfix(Expression.convertToPostfix(args[0].split(" "))));
-		// System.out.println(Expression.evaluatePostfix());
 
-		// InterfaceStack<String> ex = new LinkedStack<>();
-		// for(String str : expression)
-		// ex.push(str);
+		System.out.println();
 
-		// String[] postfix = {"1", "10.5", "2", "/", "9", "*", "10.2", "*", "+"};
-		// System.out.println(Expression.evaluatePostfix(postfix));
+
+		String testExpression = "3 * ( 7 + 8 )";
+		System.out.println("Testing the Precedence of Operator");
+		System.out.println("Infix Expression : " + testExpression);
+		System.out.print("Postfix Expression: ");
+		for (String str : Expression.convertToPostfix(testExpression.split(" ")))
+			System.out.print(str + " ");
+		System.out.println();
+		System.out.println("Output should be: 45");
+		System.out.println("Postfix Evaluation: " + Expression.evaluatePostfix(Expression.convertToPostfix(testExpression.split(" "))));
+		if (Expression.evaluatePostfix(Expression.convertToPostfix(testExpression.split(" "))) == 45)
+			System.out.println("Evaluation is equal to Test");
+
+			
 	}
 }
