@@ -1,3 +1,5 @@
+import java.util.EmptyStackException;
+
 // 
 //  Name:		Pham, Vinh 
 //  Project:	3
@@ -22,6 +24,7 @@ public class ExpressionTest {
 
 		// System.out.println(Expression.evaluatePostfix(Expression.convertToPostfix(args[0].split("
 		// "))));
+		
 		System.out.println(Expression.evaluatePostfix(new String[] { "3", "5", "+", "4", "/" }));
 
 		String[] postfixExpression = Expression.convertToPostfix(args[0].split(" "));
@@ -48,5 +51,16 @@ public class ExpressionTest {
 		if (Expression.evaluatePostfix(Expression.convertToPostfix(testExpression.split(" "))) == 45)
 			System.out.println("Evaluation is equal to Test");
 
+
+		testExpression = "( 3 + 4 ( / 2";
+		try {
+			System.out.println("Infix Expression : " + testExpression);
+			System.out.print("Postfix Expression: ");
+			Expression.convertToPostfix(testExpression.split(" "))
+			
+		} catch (EmptyStackException ese) {
+			System.out.println("Empty Stack Exception. Mismatch Parenthesis");
+		}
+		
 	}
 }

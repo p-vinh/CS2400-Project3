@@ -10,8 +10,8 @@
 // 
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 
-import javax.management.RuntimeErrorException;
 
 public class Expression {
 
@@ -59,6 +59,8 @@ public class Expression {
 
 			while (!opStack.isEmpty()) {
 				topOperator = opStack.pop();
+				if (topOperator.equals("("))
+					throw new EmptyStackException();
 				ret.add(topOperator);
 			}
 
