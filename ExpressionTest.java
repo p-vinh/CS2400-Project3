@@ -39,7 +39,7 @@ public class ExpressionTest {
 		System.out.println();
 
 		String testExpression = "3 * ( 7 + 8 )";
-		System.out.println("Testing the Precedence of Operator");
+		System.out.println("Test 1: Precedence of Operator");
 		System.out.println("Infix Expression : " + testExpression);
 		System.out.print("Postfix Expression: ");
 		for (String str : Expression.convertToPostfix(testExpression.split(" ")))
