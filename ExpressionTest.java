@@ -13,18 +13,6 @@ import java.util.EmptyStackException;
 
 public class ExpressionTest {
 	public static void main(String[] args) {
-		// String[] expression = { "(", "1", "+", "2", ")", "*", "(", "3", "-", "4",
-		// ")", "/", "(", "5", "-", "6", ")" };
-
-		// String[] postfixExpression = Expression.convertToPostfix(args[0].split(" "));
-
-		// for (String str : postfixExpression) {
-		// System.out.print(str + " ");
-		// }
-
-		// System.out.println(Expression.evaluatePostfix(Expression.convertToPostfix(args[0].split("
-		// "))));
-		
 		System.out.println(Expression.evaluatePostfix(new String[] { "3", "5", "+", "4", "/" }));
 
 		String[] postfixExpression = Expression.convertToPostfix(args[0].split(" "));
@@ -38,29 +26,55 @@ public class ExpressionTest {
 
 		System.out.println();
 
-		String testExpression = "3 * ( 7 + 8 )";
-		System.out.println("Test 1: Precedence of Operator");
+		String testExpression = "2 ^ 2 ^ 2";
+		System.out.println("Test 1: Normal Expression");
 		System.out.println("Infix Expression : " + testExpression);
 		System.out.print("Postfix Expression: ");
 		for (String str : Expression.convertToPostfix(testExpression.split(" ")))
 			System.out.print(str + " ");
 		System.out.println();
-		System.out.println("Output should be: 45");
-		System.out.println("Postfix Evaluation: "
+		System.out.println(Expression.evaluatePostfix(Expression.convertToPostfix(testExpression.split(" "))));
+		System.out.println();
+
+		testExpression = "3 * ( 7 + 8 )";
+		System.out.println("Test 2: Precedence of Operator");
+		System.out.println("Infix Expression : " + testExpression);
+		System.out.print("Postfix Expression: ");
+		for (String str : Expression.convertToPostfix(testExpression.split(" ")))
+			System.out.print(str + " ");
+		System.out.println();
+		System.out.println();
+
+		System.out.println("Test 3: Testing Output. Answer should be: 45");
+		System.out.println("Postfix Evaluation (3 7 8 + *): "
 				+ Expression.evaluatePostfix(Expression.convertToPostfix(testExpression.split(" "))));
 		if (Expression.evaluatePostfix(Expression.convertToPostfix(testExpression.split(" "))) == 45)
 			System.out.println("Evaluation is equal to Test");
+		System.out.println();
 
-
-		testExpression = "( 3 + 4 ( / 2";
 		try {
+
+			testExpression = "( 3 + 4 ( / 2";
+			System.out.println("Test 4: Unbalanced Equation");
 			System.out.println("Infix Expression : " + testExpression);
 			System.out.print("Postfix Expression: ");
-			Expression.convertToPostfix(testExpression.split(" "))
-			
-		} catch (EmptyStackException ese) {
-			System.out.println("Empty Stack Exception. Mismatch Parenthesis");
+			Expression.convertToPostfix(testExpression.split(" "));
+			System.out.println();
+
+		} catch (RuntimeException re) {
+			System.out.println("Invalid Expression");
 		}
-		
+
+		try {
+			testExpression = "3 3 2 +";
+			System.out.println();
+			System.out.println("Test 5: Missing an Operand in Postfix");
+			System.out.println("Expression: " + testExpression);
+			System.out.println("Evaluating Postfix Expression: " + Expression.evaluatePostfix(testExpression.split(" ")));
+			System.out.println();
+			
+		} catch (RuntimeException re) {
+			System.out.println("Missing an Operand");
+		}
 	}
 }

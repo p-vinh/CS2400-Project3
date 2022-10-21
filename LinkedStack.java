@@ -11,7 +11,7 @@
 
 import java.util.EmptyStackException;
 
-public class LinkedStack<T> implements InterfaceStack<T> {
+public class LinkedStack<T> implements StackInterface<T> {
 
 	private Node topNode;
 

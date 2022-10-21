@@ -21,7 +21,7 @@ public class Expression {
 	public static String[] convertToPostfix(String[] infixExpression) {
 		try {
 			ArrayList<String> ret = new ArrayList<>();
-			InterfaceStack<String> opStack = new LinkedStack<>();
+			StackInterface<String> opStack = new LinkedStack<>();
 			String topOperator;
 
 			for (String str : infixExpression) {
@@ -72,7 +72,7 @@ public class Expression {
 
 	public static double evaluatePostfix(String[] posfixExpression) {
 		try {
-			InterfaceStack<Double> evalStack = new LinkedStack<>();
+			StackInterface<Double> evalStack = new LinkedStack<>();
 
 			for (String str : posfixExpression) {
 				if (isNumber(str))

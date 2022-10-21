@@ -9,7 +9,7 @@
 //    
 // 
 
-public interface InterfaceStack<T> {
+public interface StackInterface<T> {
 
 	/** Adds a new entry to the top of the stack
 	 * 
